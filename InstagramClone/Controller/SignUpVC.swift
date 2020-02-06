@@ -9,13 +9,16 @@
 import UIKit
 import Firebase
 
-class SignUpVC: UIViewController
+class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
+    //vars
+    var imageSelected = false;
     
     let plusPhotoBtn: UIButton = {
     
         let button = UIButton(type: .system);
         button.setImage( #imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysOriginal), for: .normal);
+        button.addTarget(self, action: #selector(handleSelectProfilePhoto), for:.touchUpInside);
         return button;
         
     }();
@@ -36,6 +39,7 @@ class SignUpVC: UIViewController
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03);
         tf.borderStyle = .roundedRect;
         tf.font = UIFont.systemFont(ofSize: 14)
+        tf.addTarget(self, action: #selector(formValidation), for:.editingChanged);
         return tf;
     }();
     
@@ -45,6 +49,7 @@ class SignUpVC: UIViewController
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03);
         tf.borderStyle = .roundedRect;
         tf.font = UIFont.systemFont(ofSize: 14)
+        tf.addTarget(self, action: #selector(formValidation), for:.editingChanged);
         return tf;
     }();
     
@@ -136,8 +141,11 @@ class SignUpVC: UIViewController
     
         print("Sign Up ");
         
+        // properties
         guard let email = emailTextField.text else {return};
         guard let password = passwordTextField.text else {return};
+        guard let fullName = fullNameTextField.text else {return};
+        guard let username = usernameTextField.text else {return};
         
         print("Email is \(email) and password is \(password)");
         
@@ -149,12 +157,46 @@ class SignUpVC: UIViewController
                 return;
             }
             
-            // success
-            print("Successfully created user with Firebase");
+            // set profile image
+            guard let profileImg = self.plusPhotoBtn.imageView?.image else { return};
+            guard let uploadData = profileImg.jpegData(compressionQuality: 0.3) else {return};
             
+            let filename = NSUUID().uuidString;
+            
+            let storageRef = Storage.storage().reference().child("profile_images").child(filename);
+            
+            storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                
+                // handle error
+                if let error = error{
+                    print("Failed to update image to Firebase Storage with error", error.localizedDescription);
+                    return;
+                }
+                
+                storageRef.downloadURL(completion: { (downloadURL, error) in
+                    
+                    guard let profileImageURL = downloadURL?.absoluteString else {
+                        print("DEBUG : Profile image url is nil");
+                        return;
+                    }
+                    
+                    guard let uid = user?.user.uid else { return };
+                    
+                    let dictionaryValues = [ "name" : fullName,
+                                             "username": username,
+                                             "profileImageUrl":profileImageURL];
+                    
+                    let values = [uid: dictionaryValues];
+                    
+                    Database.database().reference().child("users").updateChildValues(values) { (Error, ref) in
+                        
+                        print("Successfully creted user and saved information to database");
+                    };
+                });
+                
+            })
             
         }
-        //Auth.auth().createUser(withEmail)
         
     }
     
@@ -163,7 +205,11 @@ class SignUpVC: UIViewController
     {
         guard
             emailTextField.hasText,
-            passwordTextField.hasText else {
+            passwordTextField.hasText,
+            fullNameTextField.hasText,
+            usernameTextField.hasText,
+            imageSelected == true
+            else {
                 
                 signUpButton.isEnabled = false;
                 signUpButton.backgroundColor = UIColor(displayP3Red: 149/255, green: 204/255, blue: 244/255, alpha: 1);
@@ -173,5 +219,45 @@ class SignUpVC: UIViewController
         
         signUpButton.isEnabled = true;
         signUpButton.backgroundColor = UIColor(displayP3Red: 17/255, green: 154/255, blue: 237/255, alpha: 1);
+    }
+    
+    @objc
+    func handleSelectProfilePhoto()
+    {
+        print("handle selectProfilePhoto function call");
+        
+        // configure image picker
+        let imagePicker = UIImagePickerController();
+        imagePicker.delegate = self;
+        imagePicker.allowsEditing = true;
+        
+        // present image picker
+        self.present(imagePicker, animated: true, completion: nil);
+    }
+    
+    // MARK: - UIImagePickerController
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
+    {
+        
+        // selected Image
+        guard let profileImage = info[.editedImage] as? UIImage else {
+            
+            imageSelected = false;
+            return
+        }
+        
+        // set imageSelected to true
+        imageSelected = true;
+        
+        // configure plusPhotoBtn with selected image
+        plusPhotoBtn.layer.cornerRadius = plusPhotoBtn.frame.width / 2;
+        plusPhotoBtn.layer.masksToBounds = true;
+        plusPhotoBtn.layer.borderColor = UIColor.black.cgColor;
+        plusPhotoBtn.layer.borderWidth = 2;
+        plusPhotoBtn.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal);
+        
+        self.dismiss(animated: true, completion: nil);
+        
     }
 }

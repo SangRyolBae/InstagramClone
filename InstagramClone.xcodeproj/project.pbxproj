@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -54,7 +54,6 @@
 				777FC8AD69E7DF9D75A4CBA2 /* Pods-InstagramClone.debug.xcconfig */,
 				B448D0AC2B0B1477724FBB2B /* Pods-InstagramClone.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -171,7 +170,7 @@
 				};
 			};
 			buildConfigurationList = FEEA640823EBA69700CC32C3 /* Build configuration list for PBXProject "InstagramClone" */;
-			compatibilityVersion = "Xcode 11.0";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
