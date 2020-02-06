@@ -61,6 +61,7 @@ class LoginVC: UIViewController
         
         attributedTitle.append(attributedSignUp);
         
+        button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside);
         button.setAttributedTitle(attributedTitle, for: .normal);
         
         return button;
@@ -73,6 +74,9 @@ class LoginVC: UIViewController
 
         //background color
         view.backgroundColor = .white;
+        
+        // hide navigation bar
+        navigationController?.navigationBar.isHidden = true;
         
         print("View did load!!");
         
@@ -98,5 +102,15 @@ class LoginVC: UIViewController
         view.addSubview(stackView);
         stackView.anchor(top: logoContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 40, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 140);
         
+    }
+    
+    @objc
+    func handleShowSignUp()
+    {
+        print("Hendle show sign up here..");
+        
+        let signUpVC = SignUpVC();
+        
+        navigationController?.pushViewController(signUpVC, animated: true);
     }
 }
