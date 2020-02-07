@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginVC: UIViewController
 {
@@ -29,6 +30,7 @@ class LoginVC: UIViewController
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03);
         tf.borderStyle = .roundedRect;
         tf.font = UIFont.systemFont(ofSize: 14)
+        tf.addTarget(self, action: #selector(formValidation), for: .editingChanged);
         return tf;
     }();
     
@@ -38,6 +40,8 @@ class LoginVC: UIViewController
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03);
         tf.borderStyle = .roundedRect;
         tf.font = UIFont.systemFont(ofSize: 14)
+        tf.addTarget(self, action: #selector(formValidation), for: .editingChanged);
+        tf.isSecureTextEntry = true;
         return tf;
     }();
     
@@ -45,8 +49,10 @@ class LoginVC: UIViewController
         let button = UIButton(type: .system);
         button.setTitle("Login", for: .normal);
         button.setTitleColor(.white, for: .normal);
-        button.backgroundColor = UIColor(displayP3Red: 149/255, green: 204/255, blue: 244/255, alpha: 1);
+        button.backgroundColor = UIColor(red: 149/255, green: 204/255, blue: 244/255, alpha: 1);
         button.layer.cornerRadius = 5;
+        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside);
+        button.isEnabled = false;
         return button;
     }();
     
@@ -107,10 +113,57 @@ class LoginVC: UIViewController
     @objc
     func handleShowSignUp()
     {
-        print("Hendle show sign up here..");
+        print("Handle show sign up here..");
         
         let signUpVC = SignUpVC();
         
         navigationController?.pushViewController(signUpVC, animated: true);
+    }
+    
+    @objc
+    func handleLogin()
+    {
+        print("Handle Login");
+        
+        guard
+            let email = emailTextField.text,
+            let password = passwordTextField.text else
+        {
+            return;
+        }
+        
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            
+            // handle error
+            if let error = error {
+                print( "Unable to sign user in with error", error.localizedDescription);
+                return;
+            }
+            
+            // handle success
+            print("Successfully signed user in");
+            
+            let mainTabVC = MainTabVC();
+            self.present(mainTabVC, animated: true, completion: nil);
+        }
+        
+    }
+    
+    @objc
+    func formValidation()
+    {
+        guard
+            emailTextField.hasText,
+            passwordTextField.hasText else {
+                
+                loginButton.isEnabled = false;
+                loginButton.backgroundColor = UIColor(red: 149/255, green: 204/255, blue: 244/255, alpha: 1);
+                return;
+        }
+        
+        // handle case for condition were met
+        loginButton.isEnabled = true;
+        loginButton.backgroundColor = UIColor(displayP3Red: 17/255, green: 154/255, blue: 237/255, alpha: 1);
     }
 }
