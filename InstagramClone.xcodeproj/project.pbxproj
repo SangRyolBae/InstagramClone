@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		366DE771F1380925DB5975D2 /* Pods_InstagramClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9A8B851E5965ACE0DC3C47 /* Pods_InstagramClone.framework */; };
 		FE5F82F023EBD65200DDDFB7 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82EF23EBD65200DDDFB7 /* SignUpVC.swift */; };
-		FE5F82F423ED02AE00DDDFB7 /* MainTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82F323ED02AE00DDDFB7 /* MainTabVC.swift */; };
 		FE5F82F623ED253D00DDDFB7 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82F523ED253D00DDDFB7 /* FeedVC.swift */; };
 		FE5F82F823ED259300DDDFB7 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82F723ED259300DDDFB7 /* SearchVC.swift */; };
 		FE5F82FA23ED25C500DDDFB7 /* UploadPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82F923ED25C500DDDFB7 /* UploadPostVC.swift */; };
 		FE5F82FC23ED25F100DDDFB7 /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82FB23ED25F100DDDFB7 /* NotificationsVC.swift */; };
 		FE5F82FE23ED261B00DDDFB7 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82FD23ED261B00DDDFB7 /* UserProfileVC.swift */; };
+		FE5F830523ED2EB200DDDFB7 /* MainTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82F323ED02AE00DDDFB7 /* MainTabVC.swift */; };
 		FEAF776B23EC28080084B818 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEAF776A23EC28080084B818 /* GoogleService-Info.plist */; };
 		FEEA641123EBA69700CC32C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEA641023EBA69700CC32C3 /* AppDelegate.swift */; };
 		FEEA641323EBA69700CC32C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEA641223EBA69700CC32C3 /* SceneDelegate.swift */; };
@@ -77,6 +77,55 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FE5F82FF23ED2B9600DDDFB7 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				FEEA642723EBA77100CC32C3 /* LoginVC.swift */,
+				FE5F82EF23EBD65200DDDFB7 /* SignUpVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		FE5F830023ED2BAF00DDDFB7 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				FE5F82FD23ED261B00DDDFB7 /* UserProfileVC.swift */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		FE5F830123ED2BB400DDDFB7 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				FE5F82FB23ED25F100DDDFB7 /* NotificationsVC.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		FE5F830223ED2BBC00DDDFB7 /* UploadPost */ = {
+			isa = PBXGroup;
+			children = (
+				FE5F82F923ED25C500DDDFB7 /* UploadPostVC.swift */,
+			);
+			path = UploadPost;
+			sourceTree = "<group>";
+		};
+		FE5F830323ED2BBF00DDDFB7 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				FE5F82F723ED259300DDDFB7 /* SearchVC.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		FE5F830423ED2BC100DDDFB7 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				FE5F82F523ED253D00DDDFB7 /* FeedVC.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
 		FEEA640423EBA69700CC32C3 = {
 			isa = PBXGroup;
 			children = (
@@ -116,14 +165,13 @@
 		FEEA642423EBA6F400CC32C3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				FEEA642723EBA77100CC32C3 /* LoginVC.swift */,
-				FE5F82EF23EBD65200DDDFB7 /* SignUpVC.swift */,
+				FE5F830423ED2BC100DDDFB7 /* Feed */,
+				FE5F830323ED2BBF00DDDFB7 /* Search */,
+				FE5F830223ED2BBC00DDDFB7 /* UploadPost */,
+				FE5F830123ED2BB400DDDFB7 /* Notifications */,
+				FE5F830023ED2BAF00DDDFB7 /* UserProfile */,
+				FE5F82FF23ED2B9600DDDFB7 /* Login */,
 				FE5F82F323ED02AE00DDDFB7 /* MainTabVC.swift */,
-				FE5F82F523ED253D00DDDFB7 /* FeedVC.swift */,
-				FE5F82F723ED259300DDDFB7 /* SearchVC.swift */,
-				FE5F82F923ED25C500DDDFB7 /* UploadPostVC.swift */,
-				FE5F82FB23ED25F100DDDFB7 /* NotificationsVC.swift */,
-				FE5F82FD23ED261B00DDDFB7 /* UserProfileVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -267,12 +315,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE5F82FA23ED25C500DDDFB7 /* UploadPostVC.swift in Sources */,
+				FE5F830523ED2EB200DDDFB7 /* MainTabVC.swift in Sources */,
 				FE5F82FC23ED25F100DDDFB7 /* NotificationsVC.swift in Sources */,
 				FE5F82F823ED259300DDDFB7 /* SearchVC.swift in Sources */,
 				FE5F82FE23ED261B00DDDFB7 /* UserProfileVC.swift in Sources */,
 				FEEA642823EBA77100CC32C3 /* LoginVC.swift in Sources */,
 				FE5F82F623ED253D00DDDFB7 /* FeedVC.swift in Sources */,
-				FE5F82F423ED02AE00DDDFB7 /* MainTabVC.swift in Sources */,
 				FEEA641123EBA69700CC32C3 /* AppDelegate.swift in Sources */,
 				FEEA641323EBA69700CC32C3 /* SceneDelegate.swift in Sources */,
 				FE5F82F023EBD65200DDDFB7 /* SignUpVC.swift in Sources */,
