@@ -12,11 +12,14 @@ import Firebase
 private let reuseIdentifier = "Cell"
 private let headerIdentifier = "UserProfileHeader"
 
-class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLayout
+class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, UserProfileHeaderDelegate
 {
-    var user: User?;
+    // MARK: - Properties
     
+    var currentUser: User?;
+    var userToLoadFromSearchVC: User?;
     
+    // MARK: - ViewDidLoad
     override func viewDidLoad()
     {
         
@@ -30,7 +33,15 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         self.collectionView.backgroundColor = .white;
         
         // fetch user data
-        fetchCurrentUserData();
+        if nil == userToLoadFromSearchVC
+        {
+            fetchCurrentUserData();
+        }
+        
+        if let userToLoadFromSearchVC = self.userToLoadFromSearchVC
+        {
+            print("Username from previous controller is \(userToLoadFromSearchVC.username)");
+        }
         
     }
 
@@ -56,15 +67,17 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         // declare header
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeader;
         
+        // self delegate
+        header.delegate = self;
+        
         // set the user in header
-        let currentUid = Auth.auth().currentUser?.uid;
-        let usersDB = Database.database().reference().child("users").child(currentUid!);
-        usersDB.observeSingleEvent(of: .value) { (snapshot) in
-            guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return };
-            let uid = snapshot.key;
-            let user = User(uid: uid, dictionary: dictionary);
-            self.navigationItem.title = user.username;
+        if let user = self.currentUser
+        {
             header.user = user;
+            self.configureLogoutButton();
+        }else if let userToLoadFromSearchVC = self.userToLoadFromSearchVC {
+            header.user = userToLoadFromSearchVC;
+            navigationItem.title = userToLoadFromSearchVC.username;
         }
         
         // return header
@@ -79,7 +92,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         return cell
     }
     
-    
+    // MARKL - API
     
     func fetchCurrentUserData()
     {
@@ -106,12 +119,140 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
             
             print( "Username is \(user.username)");
             
+            self.currentUser = user;
             self.navigationItem.title = user.username;
+            self.collectionView?.reloadData();
+        }
+    }
+    
+    func configureLogoutButton()
+    {
+        guard let currentUid = Auth.auth().currentUser?.uid else {return};
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
+    }
+    
+    // MARK: - Handlers
+    
+    @objc
+       func handleLogout()
+       {
+           // declare alert controller
+           let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet);
+           
+           // add alert log out action
+           alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
+               
+               do {
+                   
+                   // attempt sign out
+                   try Auth.auth().signOut();
+                   
+                   // present login controller
+                   let loginVC = LoginVC();
+                   let navController = UINavigationController(rootViewController: loginVC);
+                   self.present(navController, animated: true, completion: nil);
+                   
+                   print( "Successfully logged user out");
+                   
+               }catch {
+                   
+                   print("Failed to sign out");
+                   
+               }
+           }))
+           
+           // add cancel action
+           alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil));
+           
+           present(alertController, animated: true, completion: nil);
+       }
+    
+    // MARK: - UserProfileHeader
+    
+    func handleEditFollowTapped(for header: UserProfileHeader)
+    {
+        print( "handle edit follow tapped..");
+        
+        guard let user = header.user else { return };
+        
+        if header.editProfileFollowButton.titleLabel?.text == "Edit Profile"
+        {
+            let editProfileController = EditProfileController();
+            editProfileController.user = user;
+            editProfileController.userProfileController = self;
+            let navigationController = UINavigationController(rootViewController: editProfileController);
+            present(navigationController, animated: true, completion: nil);
             
-            self.user = user;
+        }else
+        {
             
+            // handles user follow/unfollow
             
+            if header.editProfileFollowButton.titleLabel?.text == "Follow"
+            {
+                header.editProfileFollowButton.setTitle("Following", for: .normal);
+                user.follow();
+            }else
+            {
+                header.editProfileFollowButton.setTitle("Follow", for: .normal);
+                user.unfollow();
+            }
         }
     }
 
+    func setUserStats(for header: UserProfileHeader)
+    {
+        guard let uid = header.user?.uid else {return};
+        
+        var numberOfFollowers: Int!;
+        var numberOfFollowing: Int!;
+        
+        // get number of followers
+        USER_FOLLOWER_REF.child(uid).observe(.value) { (snapshot) in
+            
+            if let snapshot = snapshot.value as? Dictionary<String, AnyObject>
+            {
+                numberOfFollowers = snapshot.count;
+            }else
+            {
+                numberOfFollowers = 0;
+            }
+            
+            let attributesText = NSMutableAttributedString(string: "\(numberOfFollowers!)\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)]);
+            attributesText.append(NSAttributedString(string: "followers", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]));
+            
+            header.followersLabel.attributedText = attributesText;
+            
+        }
+        
+        // get number of following
+        USER_FOLLOWING_REF.child(uid).observe(.value) { (snapshot) in
+             
+            if let snapshot = snapshot.value as? Dictionary<String, AnyObject>
+            {
+                numberOfFollowing = snapshot.count;
+            }else
+            {
+                numberOfFollowing = 0;
+            }
+        
+            let attributesText = NSMutableAttributedString(string: "\(numberOfFollowing!)\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)]);
+            attributesText.append(NSAttributedString(string: "following", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]));
+            
+            header.followingLabel.attributedText = attributesText;
+            
+        }
+    }
+    
+    func handleFollowersTapped(for header: UserProfileHeader)
+    {
+        
+    }
+    
+    func handleFollowingTapped(for header: UserProfileHeader)
+    {
+        
+    }
+    
 }

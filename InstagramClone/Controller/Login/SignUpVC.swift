@@ -145,10 +145,12 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         guard let email = emailTextField.text else {return};
         guard let password = passwordTextField.text else {return};
         guard let fullName = fullNameTextField.text else {return};
-        guard let username = usernameTextField.text else {return};
+        guard let username = usernameTextField.text?.lowercased() else {return};
         
         print("Email is \(email) and password is \(password)");
         
+        
+        // User 생성
         Auth.auth().createUser(withEmail: email, password: password) {(user, error) in
             
             // handle error
@@ -165,6 +167,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             
             let storageRef = Storage.storage().reference().child("profile_images").child(filename);
             
+            // Profile 이미지 업로드
             storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 
                 // handle error
@@ -173,6 +176,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     return;
                 }
                 
+                // 이미지 업로드 완료 후 Db에 저장
                 storageRef.downloadURL(completion: { (downloadURL, error) in
                     
                     guard let profileImageURL = downloadURL?.absoluteString else {
@@ -191,6 +195,14 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     Database.database().reference().child("users").updateChildValues(values) { (Error, ref) in
                         
                         print("Successfully creted user and saved information to database");
+                        
+                        guard let mainTabVC = UIApplication.shared.keyWindow?.rootViewController as? MainTabVC else { return};
+                        
+                        // configure view controllers in mainTabVC
+                        mainTabVC.configureViewControllers();
+                        
+                        // dismiss login controller
+                        self.dismiss(animated: true, completion: nil);
                     };
                 });
                 

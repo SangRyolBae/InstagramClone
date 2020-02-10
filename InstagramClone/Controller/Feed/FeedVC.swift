@@ -19,9 +19,6 @@ class FeedVC: UICollectionViewController {
         
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
-        // configure logout button
-        configureLogoutButton();
     }
 
     // MARK: UICollectionViewDataSource
@@ -47,44 +44,11 @@ class FeedVC: UICollectionViewController {
     
     func configureLogoutButton()
     {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         
         self.navigationItem.title = "Feed";
     }
     
-    @objc
-    func handleLogout()
-    {
-        // declare alert controller
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet);
-        
-        // add alert log out action
-        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
-            
-            do {
-                
-                // attempt sign out
-                try Auth.auth().signOut();
-                
-                // present login controller
-                let loginVC = LoginVC();
-                let navController = UINavigationController(rootViewController: loginVC);
-                self.present(navController, animated: true, completion: nil);
-                
-                print( "Successfully logged user out");
-                
-            }catch {
-                
-                print("Failed to sign out");
-                
-            }
-        }))
-        
-        // add cancel action
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil));
-        
-        present(alertController, animated: true, completion: nil);
-    }
+   
     
     
 }
