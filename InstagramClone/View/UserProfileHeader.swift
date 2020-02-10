@@ -10,6 +10,18 @@ import UIKit
 
 class UserProfileHeader: UICollectionViewCell
 {
+    var user: User?
+    {
+        
+        // Observer라고 생각하면은 됨
+        didSet {
+            let fullName = user?.name;
+            nameLabel.text = fullName;
+            
+            guard let profileImageUrl = user?.profileImageUrl else {return};
+            profileImageView.loadImage(with: profileImageUrl);
+        }
+    }
     
     let profileImageView: UIImageView = {
         let iv = UIImageView();
@@ -21,7 +33,6 @@ class UserProfileHeader: UICollectionViewCell
     
     let nameLabel:UILabel = {
         let label = UILabel();
-        label.text = "Username";
         label.font = UIFont.boldSystemFont(ofSize: 12);
         return label;
     }();

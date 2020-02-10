@@ -16,6 +16,7 @@
 		FE5F82FE23ED261B00DDDFB7 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82FD23ED261B00DDDFB7 /* UserProfileVC.swift */; };
 		FE5F830523ED2EB200DDDFB7 /* MainTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82F323ED02AE00DDDFB7 /* MainTabVC.swift */; };
 		FE5F830723ED414D00DDDFB7 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F830623ED414D00DDDFB7 /* UserProfileHeader.swift */; };
+		FE5F830923F0F22C00DDDFB7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F830823F0F22C00DDDFB7 /* User.swift */; };
 		FEAF776B23EC28080084B818 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEAF776A23EC28080084B818 /* GoogleService-Info.plist */; };
 		FEEA641123EBA69700CC32C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEA641023EBA69700CC32C3 /* AppDelegate.swift */; };
 		FEEA641323EBA69700CC32C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEA641223EBA69700CC32C3 /* SceneDelegate.swift */; };
@@ -38,6 +39,7 @@
 		FE5F82FB23ED25F100DDDFB7 /* NotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsVC.swift; sourceTree = "<group>"; };
 		FE5F82FD23ED261B00DDDFB7 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		FE5F830623ED414D00DDDFB7 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
+		FE5F830823F0F22C00DDDFB7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = InstagramClone/Controller/UserProfile/User.swift; sourceTree = SOURCE_ROOT; };
 		FEAF776A23EC28080084B818 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FEEA640D23EBA69700CC32C3 /* InstagramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEEA641023EBA69700CC32C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 		FEEA642623EBA71200CC32C3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FE5F830823F0F22C00DDDFB7 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE5F830923F0F22C00DDDFB7 /* User.swift in Sources */,
 				FE5F82FA23ED25C500DDDFB7 /* UploadPostVC.swift in Sources */,
 				FE5F830523ED2EB200DDDFB7 /* MainTabVC.swift in Sources */,
 				FE5F82FC23ED25F100DDDFB7 /* NotificationsVC.swift in Sources */,

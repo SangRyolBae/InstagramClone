@@ -14,7 +14,9 @@ private let headerIdentifier = "UserProfileHeader"
 
 class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLayout
 {
-
+    var user: User?;
+    
+    
     override func viewDidLoad()
     {
         
@@ -54,6 +56,18 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         // declare header
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeader;
         
+        // set the user in header
+        let currentUid = Auth.auth().currentUser?.uid;
+        let usersDB = Database.database().reference().child("users").child(currentUid!);
+        usersDB.observeSingleEvent(of: .value) { (snapshot) in
+            guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return };
+            let uid = snapshot.key;
+            let user = User(uid: uid, dictionary: dictionary);
+            self.navigationItem.title = user.username;
+            header.user = user;
+        }
+        
+        // return header
         return header;
     }
 
@@ -76,11 +90,26 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         
         // User name Setting
         let usersDB = Database.database().reference().child("users").child(currentUid);
-        usersDB.child("username").observeSingleEvent(of: .value) { (snapshot) in
+        usersDB.observeSingleEvent(of: .value) { (snapshot) in
             
-            guard let username = snapshot.value as? String else {return}
+            //guard let username = snapshot.value as? String else {return}
             
-            self.navigationItem.title = username;
+            //self.navigationItem.title = username;
+            
+            print(snapshot);
+            
+            let uid = snapshot.key;
+            
+            guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return };
+            
+            let user = User(uid: uid, dictionary: dictionary);
+            
+            print( "Username is \(user.username)");
+            
+            self.navigationItem.title = user.username;
+            
+            self.user = user;
+            
             
         }
     }
