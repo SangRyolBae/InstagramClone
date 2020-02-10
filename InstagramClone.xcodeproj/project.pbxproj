@@ -92,7 +92,6 @@
 			isa = PBXGroup;
 			children = (
 				FE5F82FD23ED261B00DDDFB7 /* UserProfileVC.swift */,
-				FE5F830623ED414D00DDDFB7 /* UserProfileHeader.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -182,6 +181,7 @@
 		FEEA642523EBA70F00CC32C3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FE5F830623ED414D00DDDFB7 /* UserProfileHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
