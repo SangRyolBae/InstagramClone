@@ -21,6 +21,8 @@
 		FE5F830D23F14B2C00DDDFB7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F830C23F14B2C00DDDFB7 /* Constants.swift */; };
 		FE5F830F23F14CD000DDDFB7 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F830E23F14CD000DDDFB7 /* Protocols.swift */; };
 		FE5F831123F14EC700DDDFB7 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F831023F14EC700DDDFB7 /* EditProfileController.swift */; };
+		FE5F831323F291FB00DDDFB7 /* FollowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F831223F291FB00DDDFB7 /* FollowVC.swift */; };
+		FE5F831523F2928100DDDFB7 /* FollowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F831423F2928100DDDFB7 /* FollowCell.swift */; };
 		FEAF776B23EC28080084B818 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEAF776A23EC28080084B818 /* GoogleService-Info.plist */; };
 		FEEA641123EBA69700CC32C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEA641023EBA69700CC32C3 /* AppDelegate.swift */; };
 		FEEA641323EBA69700CC32C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEA641223EBA69700CC32C3 /* SceneDelegate.swift */; };
@@ -48,6 +50,8 @@
 		FE5F830C23F14B2C00DDDFB7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FE5F830E23F14CD000DDDFB7 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		FE5F831023F14EC700DDDFB7 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
+		FE5F831223F291FB00DDDFB7 /* FollowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowVC.swift; sourceTree = "<group>"; };
+		FE5F831423F2928100DDDFB7 /* FollowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCell.swift; sourceTree = "<group>"; };
 		FEAF776A23EC28080084B818 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FEEA640D23EBA69700CC32C3 /* InstagramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEEA641023EBA69700CC32C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +107,7 @@
 			children = (
 				FE5F82FD23ED261B00DDDFB7 /* UserProfileVC.swift */,
 				FE5F831023F14EC700DDDFB7 /* EditProfileController.swift */,
+				FE5F831223F291FB00DDDFB7 /* FollowVC.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -192,6 +197,7 @@
 		FEEA642523EBA70F00CC32C3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FE5F831423F2928100DDDFB7 /* FollowCell.swift */,
 				FE5F830A23F1128800DDDFB7 /* SearchUserCell.swift */,
 				FE5F830623ED414D00DDDFB7 /* UserProfileHeader.swift */,
 			);
@@ -337,10 +343,12 @@
 				FE5F82FA23ED25C500DDDFB7 /* UploadPostVC.swift in Sources */,
 				FE5F830523ED2EB200DDDFB7 /* MainTabVC.swift in Sources */,
 				FE5F82FC23ED25F100DDDFB7 /* NotificationsVC.swift in Sources */,
+				FE5F831323F291FB00DDDFB7 /* FollowVC.swift in Sources */,
 				FE5F830D23F14B2C00DDDFB7 /* Constants.swift in Sources */,
 				FE5F830723ED414D00DDDFB7 /* UserProfileHeader.swift in Sources */,
 				FE5F82F823ED259300DDDFB7 /* SearchVC.swift in Sources */,
 				FE5F82FE23ED261B00DDDFB7 /* UserProfileVC.swift in Sources */,
+				FE5F831523F2928100DDDFB7 /* FollowCell.swift in Sources */,
 				FEEA642823EBA77100CC32C3 /* LoginVC.swift in Sources */,
 				FE5F82F623ED253D00DDDFB7 /* FeedVC.swift in Sources */,
 				FEEA641123EBA69700CC32C3 /* AppDelegate.swift in Sources */,

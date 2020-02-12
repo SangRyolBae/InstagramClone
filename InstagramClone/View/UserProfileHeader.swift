@@ -55,7 +55,7 @@ class UserProfileHeader: UICollectionViewCell
         label.numberOfLines = 0;
         label.textAlignment = .center;
         
-        let attributesText = NSMutableAttributedString(string: "5\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)]);
+        let attributesText = NSMutableAttributedString(string: "-\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)]);
         attributesText.append(NSAttributedString(string: "posts", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
         label.attributedText = attributesText;
         
@@ -66,6 +66,10 @@ class UserProfileHeader: UICollectionViewCell
         let label = UILabel();
         label.numberOfLines = 0;
         label.textAlignment = .center;
+        
+        let attributesText = NSMutableAttributedString(string: "-\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)]);
+        attributesText.append(NSAttributedString(string: "followers", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+        label.attributedText = attributesText;
         
         // add gesture recognizer
         let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowersTapped));
@@ -80,6 +84,10 @@ class UserProfileHeader: UICollectionViewCell
         let label = UILabel();
         label.numberOfLines = 0;
         label.textAlignment = .center;
+        
+        let attributesText = NSMutableAttributedString(string: "-\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)]);
+        attributesText.append(NSAttributedString(string: "following", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+        label.attributedText = attributesText;
         
         // add gesture recognizer
         let followingTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowingTapped));

@@ -16,8 +16,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
 {
     // MARK: - Properties
     
-    var currentUser: User?;
-    var userToLoadFromSearchVC: User?;
+    var user: User?;
     
     // MARK: - ViewDidLoad
     override func viewDidLoad()
@@ -33,14 +32,14 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         self.collectionView.backgroundColor = .white;
         
         // fetch user data
-        if nil == userToLoadFromSearchVC
+        if nil == user
         {
             fetchCurrentUserData();
         }
         
-        if let userToLoadFromSearchVC = self.userToLoadFromSearchVC
+        if let user = self.user
         {
-            print("Username from previous controller is \(userToLoadFromSearchVC.username)");
+            print("Username from previous controller is \(user.username)");
         }
         
     }
@@ -71,14 +70,8 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         header.delegate = self;
         
         // set the user in header
-        if let user = self.currentUser
-        {
-            header.user = user;
-            self.configureLogoutButton();
-        }else if let userToLoadFromSearchVC = self.userToLoadFromSearchVC {
-            header.user = userToLoadFromSearchVC;
-            navigationItem.title = userToLoadFromSearchVC.username;
-        }
+        header.user = self.user;
+        navigationItem.title = self.user?.username;
         
         // return header
         return header;
@@ -119,7 +112,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
             
             print( "Username is \(user.username)");
             
-            self.currentUser = user;
+            self.user = user;
             self.navigationItem.title = user.username;
             self.collectionView?.reloadData();
         }
@@ -168,7 +161,8 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
            present(alertController, animated: true, completion: nil);
        }
     
-    // MARK: - UserProfileHeader
+    
+    // MARK: - UserProfileHeader Protocol
     
     func handleEditFollowTapped(for header: UserProfileHeader)
     {
@@ -247,12 +241,18 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     
     func handleFollowersTapped(for header: UserProfileHeader)
     {
-        
+        let followVC = FollowVC();
+        followVC.viewFollowers = true;
+        followVC.uid = user?.uid;
+        navigationController?.pushViewController(followVC, animated: true);
     }
     
     func handleFollowingTapped(for header: UserProfileHeader)
     {
-        
+        let followVC = FollowVC();
+        followVC.viewFollowing = true;
+        followVC.uid = user?.uid;
+        navigationController?.pushViewController(followVC, animated: true);
     }
     
 }
