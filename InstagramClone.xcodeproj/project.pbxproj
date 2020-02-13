@@ -23,6 +23,9 @@
 		FE5F831123F14EC700DDDFB7 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F831023F14EC700DDDFB7 /* EditProfileController.swift */; };
 		FE5F831323F291FB00DDDFB7 /* FollowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F831223F291FB00DDDFB7 /* FollowVC.swift */; };
 		FE5F831523F2928100DDDFB7 /* FollowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F831423F2928100DDDFB7 /* FollowCell.swift */; };
+		FE5F835723F3CB3D00DDDFB7 /* SelectImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F835623F3CB3D00DDDFB7 /* SelectImageVC.swift */; };
+		FE5F835923F3CBAA00DDDFB7 /* SelectPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F835823F3CBAA00DDDFB7 /* SelectPhotoCell.swift */; };
+		FE5F835B23F3CC3800DDDFB7 /* SelectPhotoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F835A23F3CC3800DDDFB7 /* SelectPhotoHeader.swift */; };
 		FEAF776B23EC28080084B818 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEAF776A23EC28080084B818 /* GoogleService-Info.plist */; };
 		FEEA641123EBA69700CC32C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEA641023EBA69700CC32C3 /* AppDelegate.swift */; };
 		FEEA641323EBA69700CC32C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEA641223EBA69700CC32C3 /* SceneDelegate.swift */; };
@@ -52,6 +55,9 @@
 		FE5F831023F14EC700DDDFB7 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		FE5F831223F291FB00DDDFB7 /* FollowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowVC.swift; sourceTree = "<group>"; };
 		FE5F831423F2928100DDDFB7 /* FollowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCell.swift; sourceTree = "<group>"; };
+		FE5F835623F3CB3D00DDDFB7 /* SelectImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageVC.swift; sourceTree = "<group>"; };
+		FE5F835823F3CBAA00DDDFB7 /* SelectPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoCell.swift; sourceTree = "<group>"; };
+		FE5F835A23F3CC3800DDDFB7 /* SelectPhotoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoHeader.swift; sourceTree = "<group>"; };
 		FEAF776A23EC28080084B818 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FEEA640D23EBA69700CC32C3 /* InstagramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEEA641023EBA69700CC32C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				FE5F82F923ED25C500DDDFB7 /* UploadPostVC.swift */,
+				FE5F835623F3CB3D00DDDFB7 /* SelectImageVC.swift */,
 			);
 			path = UploadPost;
 			sourceTree = "<group>";
@@ -200,6 +207,8 @@
 				FE5F831423F2928100DDDFB7 /* FollowCell.swift */,
 				FE5F830A23F1128800DDDFB7 /* SearchUserCell.swift */,
 				FE5F830623ED414D00DDDFB7 /* UserProfileHeader.swift */,
+				FE5F835823F3CBAA00DDDFB7 /* SelectPhotoCell.swift */,
+				FE5F835A23F3CC3800DDDFB7 /* SelectPhotoHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -348,11 +357,14 @@
 				FE5F830723ED414D00DDDFB7 /* UserProfileHeader.swift in Sources */,
 				FE5F82F823ED259300DDDFB7 /* SearchVC.swift in Sources */,
 				FE5F82FE23ED261B00DDDFB7 /* UserProfileVC.swift in Sources */,
+				FE5F835723F3CB3D00DDDFB7 /* SelectImageVC.swift in Sources */,
+				FE5F835B23F3CC3800DDDFB7 /* SelectPhotoHeader.swift in Sources */,
 				FE5F831523F2928100DDDFB7 /* FollowCell.swift in Sources */,
 				FEEA642823EBA77100CC32C3 /* LoginVC.swift in Sources */,
 				FE5F82F623ED253D00DDDFB7 /* FeedVC.swift in Sources */,
 				FEEA641123EBA69700CC32C3 /* AppDelegate.swift in Sources */,
 				FEEA641323EBA69700CC32C3 /* SceneDelegate.swift in Sources */,
+				FE5F835923F3CBAA00DDDFB7 /* SelectPhotoCell.swift in Sources */,
 				FE5F82F023EBD65200DDDFB7 /* SignUpVC.swift in Sources */,
 				FE5F831123F14EC700DDDFB7 /* EditProfileController.swift in Sources */,
 				FEEA642B23EBAEB700CC32C3 /* Extensions.swift in Sources */,

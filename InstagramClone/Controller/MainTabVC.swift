@@ -34,8 +34,9 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate
         // search feed controller
         let searchVC = constructNavController(unselectedImage: #imageLiteral(resourceName: "search_unselected"), selectedImage: #imageLiteral(resourceName: "search_selected"), rootViewController: SearchVC());
         
-        // post feed controller
-        let uploadPostVC = constructNavController(unselectedImage: #imageLiteral(resourceName: "plus_unselected"), selectedImage: #imageLiteral(resourceName: "plus_unselected"), rootViewController: UploadPostVC());
+        // select image controller
+        //let uploadPostVC = constructNavController(unselectedImage: #imageLiteral(resourceName: "plus_unselected"), selectedImage: #imageLiteral(resourceName: "plus_unselected"), rootViewController: UploadPostVC());
+        let selectImageVC = constructNavController(unselectedImage: #imageLiteral(resourceName: "plus_unselected"), selectedImage: #imageLiteral(resourceName: "plus_unselected"), rootViewController: SelectImageVC());
         
         // notification controller
         let notificationVC = constructNavController(unselectedImage: #imageLiteral(resourceName: "like_unselected"), selectedImage: #imageLiteral(resourceName: "like_selected"), rootViewController: NotificationsVC());
@@ -44,7 +45,7 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate
         let userProfileVC = constructNavController(unselectedImage: #imageLiteral(resourceName: "profile_selected"), selectedImage: #imageLiteral(resourceName: "profile_selected"), rootViewController: UserProfileVC(collectionViewLayout: UICollectionViewFlowLayout()));
         
         // view controller to be added to tab controller
-        viewControllers = [feedVC, searchVC, uploadPostVC, notificationVC, userProfileVC];
+        viewControllers = [feedVC, searchVC, selectImageVC, notificationVC, userProfileVC];
         
         // tab bar tint color
         tabBar.tintColor = .black;
@@ -61,6 +62,24 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate
         
         return navController;
     
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool
+    {
+    
+        let index = viewControllers?.index(of: viewController);
+        
+        if 2 == index
+        {
+            let selectImageVC = SelectImageVC(collectionViewLayout: UICollectionViewFlowLayout());
+            let navController = UINavigationController(rootViewController: selectImageVC);
+            navController.navigationBar.tintColor = .black
+            self.present(navController, animated: true, completion: nil);
+            
+            return false;
+        }
+
+        return true;
     }
     
     func checkIfUserIsLoggedIn()
