@@ -12,9 +12,9 @@ class SelectPhotoCell: UICollectionViewCell
 {
     // MARK: - Properties
     
-    let photoImageView: UIImageView = {
+    let photoImageView: CustomImageView = {
         
-        let iv = UIImageView();
+        let iv = CustomImageView();
         iv.contentMode = .scaleAspectFill;
         iv.clipsToBounds = true;
         iv.backgroundColor = .lightGray;

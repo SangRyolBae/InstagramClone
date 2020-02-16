@@ -40,11 +40,20 @@ class User
         
         guard let uid = uid else { return };
         
+        // set is followed to true
         self.isFollowed = true;
         
+        // add followed user to current user-following structure
         USER_FOLLOWING_REF.child(currentUid).updateChildValues([uid:1]);
         
+        // add current user to followed user-follower structure
         USER_FOLLOWER_REF.child(uid).updateChildValues([currentUid:1]);
+        
+        // add followed users posts to current user-feed
+        USER_POSTS_REF.child(uid).observe(.childAdded) { (snapshot) in
+            let postId = snapshot.key;
+            USER_FEED_REF.child(currentUid).updateChildValues([postId: 1]);
+        }
     }
     
     
@@ -54,12 +63,22 @@ class User
         
         guard let uid = uid else { return };
         
+        // set is followed to false
         self.isFollowed = false;
         
+        // remove user from current user-following structure
         USER_FOLLOWING_REF.child(currentUid).child(uid).removeValue();
         
+        // remove current user from user-follower structure
         USER_FOLLOWER_REF.child(uid).child(currentUid).removeValue();
                
+        //remove unfollowed users posts from current user-feed
+        USER_POSTS_REF.child(uid).observe(.childAdded) { (snapshot) in
+            
+            let postId = snapshot.key;
+            
+            USER_FEED_REF.child(currentUid).child(postId).removeValue();
+        }
     }
     
     func checkIfUserIsFollowed(completion: @escaping(Bool) ->())

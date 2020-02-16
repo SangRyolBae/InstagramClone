@@ -28,9 +28,9 @@ class SearchUserCell: UITableViewCell
         }
     }
     
-    let profileImageView: UIImageView = {
+    let profileImageView: CustomImageView = {
         
-        let iv = UIImageView();
+        let iv = CustomImageView();
         iv.contentMode = .scaleAspectFill;
         iv.clipsToBounds = true;
         iv.backgroundColor = .lightGray;
