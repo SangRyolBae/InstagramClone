@@ -50,16 +50,11 @@ class FollowLikeVC: UITableViewController, FollowCellDelegate
         // register cell class
         tableView.register(FollowLikeCell.self, forCellReuseIdentifier: reuseIdentifer);
         
-        // configure nav controller and fetch users
-        if let viewingMode = self.viewingMode
-        {
-            // configure nav title
-            configureNavigationTitle(with: viewingMode);
-            
-            // fetch users
-            fetchUsers(by: self.viewingMode);
-        }
+       // configure nav titles
+        configureNavigationTitle();
         
+        // fetch users
+        fetchUsers();
 
         // clear separator lines
         tableView.separatorColor = .clear;
@@ -108,8 +103,10 @@ class FollowLikeVC: UITableViewController, FollowCellDelegate
     }
     
     // MARK: - Handlers
-    func configureNavigationTitle(with viewingMode: ViewingMode)
+    func configureNavigationTitle()
     {
+        guard let viewingMode = self.viewingMode else {return};
+        
         switch viewingMode
         {
             case .Followers:
@@ -135,11 +132,23 @@ class FollowLikeVC: UITableViewController, FollowCellDelegate
         }
     }
     
-    func fetchUsers(by viweingMode:ViewingMode)
+    func fetchUser(with uid: String)
+    {
+        Database.fetchUser(with: uid) { (user) in
+            
+            self.users.append(user);
+            
+            self.tableView.reloadData();
+            
+        }
+    }
+    
+    func fetchUsers()
     {
         guard let ref = getDatabaseReference() else {return};
+        guard let viewingMode = self.viewingMode else {return};
         
-        switch viweingMode
+        switch viewingMode
         {
         case .Following, .Followers:
             
@@ -151,32 +160,21 @@ class FollowLikeVC: UITableViewController, FollowCellDelegate
                 
                 allObjects.forEach { (snapshot) in
                 
-                    let userId = snapshot.key;
+                    let uid = snapshot.key;
                     
-                    Database.fetchUser(with: userId) { (user) in
-                        
-                        self.users.append(user);
-                        
-                        self.tableView.reloadData();
-                        
-                    }
+                    self.fetchUser(with: uid);
                 }
             }
         case .Likes:
-            
-            
+                        
             guard let postId = self.postId else { return };
             
             ref.child(postId).observe(.childAdded, with: { (snapshot) in
                 
                 let uid = snapshot.key;
                 
-                Database.fetchUser(with: uid) { (user) in
-                    
-                    self.users.append(user);
-                    
-                    self.tableView.reloadData();
-                }
+                self.fetchUser(with: uid);
+                
             })
         }
         
