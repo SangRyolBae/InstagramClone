@@ -315,18 +315,18 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     
     func handleFollowersTapped(for header: UserProfileHeader)
     {
-        let followVC = FollowVC();
-        followVC.viewFollowers = true;
-        followVC.uid = user?.uid;
-        navigationController?.pushViewController(followVC, animated: true);
+        let followLikeVC = FollowLikeVC();
+        followLikeVC.viewingMode = FollowLikeVC.ViewingMode(index: 1);
+        followLikeVC.uid = user?.uid;
+        navigationController?.pushViewController(followLikeVC, animated: true);
     }
     
     func handleFollowingTapped(for header: UserProfileHeader)
     {
-        let followVC = FollowVC();
-        followVC.viewFollowing = true;
-        followVC.uid = user?.uid;
-        navigationController?.pushViewController(followVC, animated: true);
+        let followLikeVC = FollowLikeVC();
+        followLikeVC.viewingMode = FollowLikeVC.ViewingMode(index: 0);
+        followLikeVC.uid = user?.uid;
+        navigationController?.pushViewController(followLikeVC, animated: true);
     }
     
 }

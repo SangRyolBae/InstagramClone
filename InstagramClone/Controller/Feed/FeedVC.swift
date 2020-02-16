@@ -12,7 +12,7 @@ import Firebase
 private let reuseIdentifier = "Cell"
 
 class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, FeedCellDelegate {
-
+    
     // MARK: - Properties
     
     var posts = [Post]();
@@ -163,6 +163,7 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
         }
     }
     
+    
     // MARK: - Handlers
        
     @objc
@@ -232,11 +233,71 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
     
     func handleLikeTapped(for cell:FeedCell)
     {
+        guard let post = cell.post else { return};
         
+        if (post.didLike)
+        {
+           
+            post.adjectLikes(addLike: false, completion: { (likes) in
+                
+                cell.likeButton.setImage(#imageLiteral(resourceName: "like_unselected"), for: .normal);
+                cell.likesLabel.text = "\(likes) likes";
+                
+            });
+            
+        }else
+        {
+            post.adjectLikes(addLike: true, completion: { (likes) in
+                
+                cell.likeButton.setImage(#imageLiteral(resourceName: "like_selected"), for: .normal);
+                cell.likesLabel.text = "\(likes) likes";
+                
+            });
+            
+        }
     }
     
     func handleCommentTapped(for cell:FeedCell)
     {
         
     }
+    
+    func handleConfigureLikeButton(for cell: FeedCell)
+    {
+        guard let post = cell.post else {return};
+        guard let postId = post.postId else {return};
+        guard let currentUid = Auth.auth().currentUser?.uid else {return}; 
+        
+        USER_LIKES_REF.child(currentUid).observeSingleEvent(of: .value) { (snapshot) in
+            
+            if snapshot.hasChild(postId)
+            {
+                print("User has liked post");
+                
+                post.didLike = true;
+                cell.likeButton.setImage(#imageLiteral(resourceName: "like_selected"), for: .normal);
+                
+            }
+            
+        }  
+        
+    }
+    
+    func handleShowLikes(for cell: FeedCell) {
+        
+        print("handle show likes");
+        
+        guard let post = cell.post else {return};
+        guard let postId = post.postId else {return};
+        
+        let followLikeVC = FollowLikeVC();
+        
+        followLikeVC.viewingMode = FollowLikeVC.ViewingMode(index: 2);
+        followLikeVC.postId = postId;
+        navigationController?.pushViewController(followLikeVC, animated: true);
+    }
+    
+    
+    
+
 }

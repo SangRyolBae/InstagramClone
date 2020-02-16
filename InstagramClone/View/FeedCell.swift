@@ -37,6 +37,7 @@ class FeedCell: UICollectionViewCell
             self.postImageView.loadImage(with: imageUrl);
             self.likesLabel.text = "\(likes) likes";
             
+            configureLikeButton();
         }
     }
     
@@ -125,11 +126,18 @@ class FeedCell: UICollectionViewCell
         
     }();
     
-    let likesLabel: UILabel = {
+    lazy var likesLabel: UILabel = {
         
         let label = UILabel();
         label.font = UIFont.boldSystemFont(ofSize: 12);
         label.text = "3 likes";
+        
+        // add gesture recognizer to label
+        let likeTap = UITapGestureRecognizer(target: self, action: #selector(handleShowLikes));
+        likeTap.numberOfTouchesRequired = 1;
+        label.isUserInteractionEnabled = true;
+        label.addGestureRecognizer(likeTap);
+        
         return label;
         
     }();
@@ -183,7 +191,18 @@ class FeedCell: UICollectionViewCell
         delegate?.handleCommentTapped(for: self);
     }
     
+    @objc
+    func handleShowLikes()
+    {
+        delegate?.handleShowLikes(for: self);
+    }
+    
     // MARK: - APIs
+    
+    func configureLikeButton()
+    {
+        delegate?.handleConfigureLikeButton(for: self);
+    }
     
     func configureActionButtons()
     {

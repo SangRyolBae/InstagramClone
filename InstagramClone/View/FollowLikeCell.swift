@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class FollowCell: UITableViewCell
+class FollowLikeCell: UITableViewCell
 {
     // MARK : - Properties
     var delegate: FollowCellDelegate?
