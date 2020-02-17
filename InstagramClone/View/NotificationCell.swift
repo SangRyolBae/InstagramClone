@@ -5,6 +5,7 @@
 //  Created by 배상렬 on 2020/02/17.
 //  Copyright © 2020 BaeSangRyol. All rights reserved.
 //
+
 import UIKit
 
 class NotificationCell: UITableViewCell {

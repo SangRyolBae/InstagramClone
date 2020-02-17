@@ -306,6 +306,4 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
     }
     
     
-    
-
 }
