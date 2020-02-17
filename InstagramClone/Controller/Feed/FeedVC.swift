@@ -231,22 +231,25 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
         
     }
     
-    func handleLikeTapped(for cell:FeedCell)
+    func handleLikeTapped(for cell:FeedCell, isDoubleTap:Bool)
     {
         guard let post = cell.post else { return};
         
         if (post.didLike)
         {
-           
-            post.adjectLikes(addLike: false, completion: { (likes) in
-                
-                cell.likeButton.setImage(#imageLiteral(resourceName: "like_unselected"), for: .normal);
-                cell.likesLabel.text = "\(likes) likes";
-                
-            });
-            
+            // handle unlike post
+            if !isDoubleTap {
+                post.adjectLikes(addLike: false, completion: { (likes) in
+                    
+                    cell.likeButton.setImage(#imageLiteral(resourceName: "like_unselected"), for: .normal);
+                    cell.likesLabel.text = "\(likes) likes";
+                    
+                });
+            }
+                        
         }else
         {
+            // handle like post
             post.adjectLikes(addLike: true, completion: { (likes) in
                 
                 cell.likeButton.setImage(#imageLiteral(resourceName: "like_selected"), for: .normal);
@@ -259,7 +262,12 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
     
     func handleCommentTapped(for cell:FeedCell)
     {
+        guard let post = cell.post else {return};
+        guard let postId = post.postId else {return};
         
+        let commentVC = CommentVC(collectionViewLayout: UICollectionViewFlowLayout());
+        commentVC.postId = postId;
+        navigationController?.pushViewController(commentVC, animated: true);
     }
     
     func handleConfigureLikeButton(for cell: FeedCell)
