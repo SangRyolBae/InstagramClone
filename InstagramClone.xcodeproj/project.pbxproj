@@ -12,6 +12,7 @@
 		FE11DFEF23FA892600A5E1A7 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11DFEE23FA892600A5E1A7 /* NotificationCell.swift */; };
 		FE197B2123FA2711004FF93B /* CommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE197B2023FA2711004FF93B /* CommentVC.swift */; };
 		FE197B2323FA27B4004FF93B /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE197B2223FA27B4004FF93B /* CommentCell.swift */; };
+		FE52F7DE23FADBD400446B0F /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE52F7DD23FADBD400446B0F /* Notification.swift */; };
 		FE5F82F023EBD65200DDDFB7 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82EF23EBD65200DDDFB7 /* SignUpVC.swift */; };
 		FE5F82F623ED253D00DDDFB7 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82F523ED253D00DDDFB7 /* FeedVC.swift */; };
 		FE5F82F823ED259300DDDFB7 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82F723ED259300DDDFB7 /* SearchVC.swift */; };
@@ -52,6 +53,7 @@
 		FE11DFEE23FA892600A5E1A7 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		FE197B2023FA2711004FF93B /* CommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentVC.swift; sourceTree = "<group>"; };
 		FE197B2223FA27B4004FF93B /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		FE52F7DD23FADBD400446B0F /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Notification.swift; path = InstagramClone/View/Notification.swift; sourceTree = SOURCE_ROOT; };
 		FE5F82EF23EBD65200DDDFB7 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		FE5F82F323ED02AE00DDDFB7 /* MainTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabVC.swift; sourceTree = "<group>"; };
 		FE5F82F523ED253D00DDDFB7 /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				FE5F830823F0F22C00DDDFB7 /* User.swift */,
 				FEE3D95523F6476C005E4A74 /* Post.swift */,
 				FE11DFE823FA5E6C00A5E1A7 /* Comment.swift */,
+				FE52F7DD23FADBD400446B0F /* Notification.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				FE5F830F23F14CD000DDDFB7 /* Protocols.swift in Sources */,
 				FEE3D95A23F654C7005E4A74 /* CustomImageView.swift in Sources */,
 				FE11DFEF23FA892600A5E1A7 /* NotificationCell.swift in Sources */,
+				FE52F7DE23FADBD400446B0F /* Notification.swift in Sources */,
 				FE197B2323FA27B4004FF93B /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
