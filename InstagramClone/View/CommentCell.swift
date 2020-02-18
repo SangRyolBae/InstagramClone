@@ -21,13 +21,14 @@ class CommentCell: UICollectionViewCell
             guard let profileImageUrl = user.profileImageUrl else {return};
             guard let username = user.username else {return};
             guard let commentText = comment?.commentText else {return};
+            guard let timestamp = getCommentTimeStamp() else {return};
             
             self.profileImageView.loadImage(with: profileImageUrl);
             
             let attributesText = NSMutableAttributedString(string: username, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)]);
             attributesText.append(NSAttributedString(string: " \(commentText)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]));
            
-            attributesText.append(NSAttributedString(string: " 2d.", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+            attributesText.append(NSAttributedString(string: " \(timestamp).", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
                                                                                 NSAttributedString.Key.foregroundColor: UIColor.lightGray]));
            
                
@@ -70,6 +71,19 @@ class CommentCell: UICollectionViewCell
         
         return view;
     }();
+    
+    func getCommentTimeStamp() -> String?
+    {
+        guard let comment = self.comment else { return nil};
+        
+        let dateFormatter = DateComponentsFormatter();
+        dateFormatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth];
+        dateFormatter.maximumUnitCount = 1;
+        dateFormatter.unitsStyle = .abbreviated;
+        
+        let now = Date();
+        return dateFormatter.string(from: comment.creationData, to: now);
+    }
     
     // MARK: - Init
     

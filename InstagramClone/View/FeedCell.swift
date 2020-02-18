@@ -23,7 +23,7 @@ class FeedCell: UICollectionViewCell
             guard let ownerUid = post?.ownerUid else {return};
             guard let imageUrl = post?.imageUrl else {return};
             guard let likes = post?.likes else {return};
-            
+            guard let timestamp = getFeedTimeStamp() else {return};
             
             // User info
             Database.fetchUser(with: ownerUid) { (user) in
@@ -36,6 +36,7 @@ class FeedCell: UICollectionViewCell
             
             self.postImageView.loadImage(with: imageUrl);
             self.likesLabel.text = "\(likes) likes";
+            self.postTimeLabel.text = timestamp;
             
             configureLikeButton();
         }
@@ -166,7 +167,6 @@ class FeedCell: UICollectionViewCell
         
         label.textColor = .lightGray;
         label.font = UIFont.boldSystemFont(ofSize: 10);
-        label.text = "2 DAYS AGO";
         
         return label;
         
@@ -243,6 +243,19 @@ class FeedCell: UICollectionViewCell
         
         attributesText.append(NSAttributedString(string: " \(String(describing: caption))", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]));
         captionLabel.attributedText = attributesText;
+    }
+    
+    func getFeedTimeStamp() -> String?
+    {
+        guard let post = self.post else { return nil};
+        
+        let dateFormatter = DateComponentsFormatter();
+        dateFormatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth];
+        dateFormatter.maximumUnitCount = 1;
+        dateFormatter.unitsStyle = .abbreviated;
+        
+        let now = Date();
+        return dateFormatter.string(from: post.creationDate, to: now);
     }
     
     // MARK: - Init
