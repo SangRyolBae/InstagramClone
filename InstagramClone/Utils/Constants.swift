@@ -30,6 +30,9 @@ let POST_LIKES_REF = DB_REF.child("post-likes");
 let COMMENT_REF = DB_REF.child("comments");
 let NOTIFICATIONS_REF = DB_REF.child("notifications");
 
+let MESSAGES_REF = DB_REF.child("messages")
+let USER_MESSAGES_REF = DB_REF.child("user-messages");
+
 // MARK: - Notification type
 let LIKE_INT_VALUE = 0;
 let COMMENT_INT_VALUE = 1;

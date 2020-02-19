@@ -1,37 +1,32 @@
 //
-//  MessagesCell.swift
+//  NewMessageCell.swift
 //  InstagramClone
 //
-//  Created by 배상렬 on 2020/02/18.
+//  Created by 배상렬 on 2020/02/19.
 //  Copyright © 2020 BaeSangRyol. All rights reserved.
 //
 
 import UIKit
-import Firebase
 
-class MessageCell: UITableViewCell {
-    
+class NewMessageCell: UITableViewCell
+{
+
     // MARK : - Properties
     
-    var message: Message?
+    var user: User?
     {
         didSet
         {
-            guard let messageText = message?.messageText else {return};
-            detailTextLabel?.text = messageText;
+            guard let profileImageUrl = user?.profileImageUrl else {return};
+            guard let username = user?.username else {return};
+            guard let fullname = user?.name else {return};
             
-            if let second = message?.creationDate
-            {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "hh:mm a"
-                timestampLabel.text = dateFormatter.string(from: second);
-            }
+            profileImageView.loadImage(with: profileImageUrl);
             
-            configureUserData();
-            
+            textLabel?.text = username;
+            detailTextLabel?.text = fullname;
         }
     }
-    
     
     let profileImageView: CustomImageView = {
         
@@ -43,28 +38,8 @@ class MessageCell: UITableViewCell {
         return iv;
     }();
     
-    let timestampLabel: UILabel = {
-        
-        let label = UILabel();
-        label.font = UIFont.systemFont(ofSize: 12);
-        label.textColor = .darkGray;
-        return label;
-        
-    }();
-    
     // MARK: - Handlers
     
-    func configureUserData()
-    {
-        
-        guard let chatPartnerId = message?.getChatPartnerId() else { return};
-        
-        Database.fetchUser(with: chatPartnerId) { (user) in
-            self.profileImageView.loadImage(with: user.profileImageUrl);
-            self.textLabel?.text = user.username;
-        }
-        
-    }
     
     // MARK: - Init
     
@@ -80,10 +55,7 @@ class MessageCell: UITableViewCell {
         profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true;
         profileImageView.layer.cornerRadius = 50 / 2;
         
-        // add time stamp
-        addSubview(timestampLabel);
-        timestampLabel.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 20, paddingLeft: 0, paddingBottom: 0, paddingRight: 12, width: 0, height: 0);
-        
+       
         textLabel?.text = "Username";
         detailTextLabel?.text = "Some test label to see if this works";
         
@@ -107,4 +79,5 @@ class MessageCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
 }

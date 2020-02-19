@@ -32,6 +32,11 @@
 		FE5F835923F3CBAA00DDDFB7 /* SelectPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F835823F3CBAA00DDDFB7 /* SelectPhotoCell.swift */; };
 		FE5F835B23F3CC3800DDDFB7 /* SelectPhotoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F835A23F3CC3800DDDFB7 /* SelectPhotoHeader.swift */; };
 		FEAF776B23EC28080084B818 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEAF776A23EC28080084B818 /* GoogleService-Info.plist */; };
+		FEB58BBE23FCCBF2002F229A /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB58BBD23FCCBF2002F229A /* NewMessageController.swift */; };
+		FEB58BC023FCCC72002F229A /* NewMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB58BBF23FCCC72002F229A /* NewMessageCell.swift */; };
+		FEB58BC223FCD21C002F229A /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB58BC123FCD21C002F229A /* Message.swift */; };
+		FEB58BC423FCD383002F229A /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB58BC323FCD383002F229A /* ChatController.swift */; };
+		FEB58BC623FCF43B002F229A /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB58BC523FCF43B002F229A /* ChatCell.swift */; };
 		FED11CDA23FBCB6A00DF8D5D /* SearchPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED11CD923FBCB6A00DF8D5D /* SearchPostCell.swift */; };
 		FED11CDD23FBDEFA00DF8D5D /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED11CDC23FBDEFA00DF8D5D /* MessagesController.swift */; };
 		FED11CE023FBE18800DF8D5D /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED11CDF23FBE18800DF8D5D /* MessageCell.swift */; };
@@ -76,6 +81,11 @@
 		FE5F835823F3CBAA00DDDFB7 /* SelectPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoCell.swift; sourceTree = "<group>"; };
 		FE5F835A23F3CC3800DDDFB7 /* SelectPhotoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoHeader.swift; sourceTree = "<group>"; };
 		FEAF776A23EC28080084B818 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FEB58BBD23FCCBF2002F229A /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
+		FEB58BBF23FCCC72002F229A /* NewMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageCell.swift; sourceTree = "<group>"; };
+		FEB58BC123FCD21C002F229A /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Message.swift; path = InstagramClone/View/Messages/Message.swift; sourceTree = SOURCE_ROOT; };
+		FEB58BC323FCD383002F229A /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		FEB58BC523FCF43B002F229A /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		FED11CD923FBCB6A00DF8D5D /* SearchPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPostCell.swift; sourceTree = "<group>"; };
 		FED11CDC23FBDEFA00DF8D5D /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		FED11CDF23FBE18800DF8D5D /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -176,10 +186,29 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
+		FEB58BC723FCFA97002F229A /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				FE5F831423F2928100DDDFB7 /* FollowLikeCell.swift */,
+				FE5F830A23F1128800DDDFB7 /* SearchUserCell.swift */,
+				FE5F830623ED414D00DDDFB7 /* UserProfileHeader.swift */,
+				FE5F835823F3CBAA00DDDFB7 /* SelectPhotoCell.swift */,
+				FE5F835A23F3CC3800DDDFB7 /* SelectPhotoHeader.swift */,
+				FEE3D95723F64EE6005E4A74 /* UserPostCell.swift */,
+				FEE3D95B23F6B263005E4A74 /* FeedCell.swift */,
+				FE197B2223FA27B4004FF93B /* CommentCell.swift */,
+				FE11DFEE23FA892600A5E1A7 /* NotificationCell.swift */,
+				FED11CD923FBCB6A00DF8D5D /* SearchPostCell.swift */,
+			);
+			path = Social;
+			sourceTree = "<group>";
+		};
 		FED11CDB23FBDED600DF8D5D /* Messages */ = {
 			isa = PBXGroup;
 			children = (
 				FED11CDC23FBDEFA00DF8D5D /* MessagesController.swift */,
+				FEB58BBD23FCCBF2002F229A /* NewMessageController.swift */,
+				FEB58BC323FCD383002F229A /* ChatController.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -188,6 +217,8 @@
 			isa = PBXGroup;
 			children = (
 				FED11CDF23FBE18800DF8D5D /* MessageCell.swift */,
+				FEB58BBF23FCCC72002F229A /* NewMessageCell.swift */,
+				FEB58BC523FCF43B002F229A /* ChatCell.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -246,17 +277,8 @@
 		FEEA642523EBA70F00CC32C3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FEB58BC723FCFA97002F229A /* Social */,
 				FED11CDE23FBE14100DF8D5D /* Messages */,
-				FE5F831423F2928100DDDFB7 /* FollowLikeCell.swift */,
-				FE5F830A23F1128800DDDFB7 /* SearchUserCell.swift */,
-				FE5F830623ED414D00DDDFB7 /* UserProfileHeader.swift */,
-				FE5F835823F3CBAA00DDDFB7 /* SelectPhotoCell.swift */,
-				FE5F835A23F3CC3800DDDFB7 /* SelectPhotoHeader.swift */,
-				FEE3D95723F64EE6005E4A74 /* UserPostCell.swift */,
-				FEE3D95B23F6B263005E4A74 /* FeedCell.swift */,
-				FE197B2223FA27B4004FF93B /* CommentCell.swift */,
-				FE11DFEE23FA892600A5E1A7 /* NotificationCell.swift */,
-				FED11CD923FBCB6A00DF8D5D /* SearchPostCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -268,6 +290,7 @@
 				FEE3D95523F6476C005E4A74 /* Post.swift */,
 				FE11DFE823FA5E6C00A5E1A7 /* Comment.swift */,
 				FE52F7DD23FADBD400446B0F /* Notification.swift */,
+				FEB58BC123FCD21C002F229A /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -401,6 +424,7 @@
 			files = (
 				FE5F830B23F1128800DDDFB7 /* SearchUserCell.swift in Sources */,
 				FEE3D95C23F6B263005E4A74 /* FeedCell.swift in Sources */,
+				FEB58BC023FCCC72002F229A /* NewMessageCell.swift in Sources */,
 				FE5F830923F0F22C00DDDFB7 /* User.swift in Sources */,
 				FE197B2123FA2711004FF93B /* CommentVC.swift in Sources */,
 				FE5F82FA23ED25C500DDDFB7 /* UploadPostVC.swift in Sources */,
@@ -410,6 +434,8 @@
 				FE5F830D23F14B2C00DDDFB7 /* Constants.swift in Sources */,
 				FE5F830723ED414D00DDDFB7 /* UserProfileHeader.swift in Sources */,
 				FE5F82F823ED259300DDDFB7 /* SearchVC.swift in Sources */,
+				FEB58BBE23FCCBF2002F229A /* NewMessageController.swift in Sources */,
+				FEB58BC423FCD383002F229A /* ChatController.swift in Sources */,
 				FED11CDA23FBCB6A00DF8D5D /* SearchPostCell.swift in Sources */,
 				FE11DFE923FA5E6C00A5E1A7 /* Comment.swift in Sources */,
 				FE5F82FE23ED261B00DDDFB7 /* UserProfileVC.swift in Sources */,
@@ -419,12 +445,14 @@
 				FED11CE023FBE18800DF8D5D /* MessageCell.swift in Sources */,
 				FE5F831523F2928100DDDFB7 /* FollowLikeCell.swift in Sources */,
 				FEEA642823EBA77100CC32C3 /* LoginVC.swift in Sources */,
+				FEB58BC623FCF43B002F229A /* ChatCell.swift in Sources */,
 				FE5F82F623ED253D00DDDFB7 /* FeedVC.swift in Sources */,
 				FEEA641123EBA69700CC32C3 /* AppDelegate.swift in Sources */,
 				FEEA641323EBA69700CC32C3 /* SceneDelegate.swift in Sources */,
 				FEE3D95823F64EE6005E4A74 /* UserPostCell.swift in Sources */,
 				FE5F835923F3CBAA00DDDFB7 /* SelectPhotoCell.swift in Sources */,
 				FE5F82F023EBD65200DDDFB7 /* SignUpVC.swift in Sources */,
+				FEB58BC223FCD21C002F229A /* Message.swift in Sources */,
 				FE5F831123F14EC700DDDFB7 /* EditProfileController.swift in Sources */,
 				FEEA642B23EBAEB700CC32C3 /* Extensions.swift in Sources */,
 				FE5F830F23F14CD000DDDFB7 /* Protocols.swift in Sources */,
