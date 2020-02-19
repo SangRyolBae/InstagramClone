@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import ActiveLabel
 
 class FeedCell: UICollectionViewCell
 {
@@ -149,14 +150,10 @@ class FeedCell: UICollectionViewCell
         
     }();
     
-    let captionLabel: UILabel = {
+    let captionLabel: ActiveLabel = {
         
-        let label = UILabel();
-        
-        let attributesText = NSMutableAttributedString(string: "Username", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)]);
-        attributesText.append(NSAttributedString(string: " Some test caption for now", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]));
-        label.attributedText = attributesText;
-        
+        let label = ActiveLabel();
+        label.numberOfLines = 0;
         return label;
         
     }();
@@ -234,16 +231,45 @@ class FeedCell: UICollectionViewCell
         
     }
     
+    
     func configurePostCaption(user: User)
     {
         guard let post = self.post else { return };
         guard let caption = post.caption else { return};
-         
-        let attributesText = NSMutableAttributedString(string: user.username, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)]);
+        guard let username = post.user?.username else {return};
         
-        attributesText.append(NSAttributedString(string: " \(String(describing: caption))", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]));
-        captionLabel.attributedText = attributesText;
+        // look for username as pattern
+        let customType = ActiveType.custom(pattern: "^\(username)\\b");
+        
+        // enable username as custom type
+        captionLabel.enabledTypes = [.mention, .hashtag, .url, customType];
+        
+        // configure username link attributes
+        captionLabel.configureLinkAttribute = { (type, attributes, isSelected) in
+            var atts = attributes;
+            
+            switch type
+            {
+            case .custom:
+                atts[NSAttributedString.Key.font] = UIFont.boldSystemFont(ofSize: 12);
+            default: ()
+            }
+            
+            return atts;
+        }
+        
+        captionLabel.customize { (label) in
+            
+            label.text = "\(username) \(caption)"
+            label.customColor[customType] = .black;
+            label.font = UIFont.systemFont(ofSize: 12);
+            label.textColor = .black;
+            captionLabel.numberOfLines = 2;
+        }
+        
+        postTimeLabel.text = "2 DAYS AGO";
     }
+    
     
     func getFeedTimeStamp() -> String?
     {

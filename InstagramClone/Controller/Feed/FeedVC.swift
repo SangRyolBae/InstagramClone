@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import ActiveLabel
 
 private let reuseIdentifier = "Cell"
 
@@ -96,6 +97,8 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
         {
             cell.post = posts[indexPath.row];
         }
+        
+        handleHashtagTapped(forCell: cell);
         
         return cell
     }
@@ -216,6 +219,15 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
         posts.removeAll(keepingCapacity: false);
         fetchPosts();
         collectionView?.reloadData();
+    }
+    
+    func handleHashtagTapped(forCell cell: FeedCell)
+    {
+        cell.captionLabel.handleHashtagTap { (hashtag) in
+            
+            print("HashTag is \(hashtag)");
+            
+        }
     }
     
     // MARK: - FeedCellDelegate Protocol Handlers

@@ -85,6 +85,30 @@ class UploadPostVC: UIViewController, UITextViewDelegate
         photoImageView.image = selectedimage;
     }
     
+    func uploadHashtagToServer(withPostId postId: String)
+    {
+        
+        guard let caption = captionTextView.text else {return};
+        
+        let words: [String] = caption.components(separatedBy: .whitespacesAndNewlines);
+        
+        for var word in words
+        {
+            if word.hasPrefix("#")
+            {
+                
+                word = word.trimmingCharacters(in: .punctuationCharacters);
+                word = word.trimmingCharacters(in: .symbols);
+                
+                let hashtagValues = [postId: 1] as [String: Any];
+                
+                HASHTAG_POST_REF.child(word.lowercased()).updateChildValues(hashtagValues);
+                
+            }
+        }
+        
+    }
+    
     // MARK: - Handlers
     func updateUserFeeds(with postId:String)
     {
@@ -165,6 +189,9 @@ class UploadPostVC: UIViewController, UITextViewDelegate
                     
                     // update user-feed structure
                     self.updateUserFeeds(with: postKey);
+                    
+                    // upload hashtag to server
+                    self.uploadHashtagToServer(withPostId: postKey);
                     
                     // return to home feed
                     self.dismiss(animated: true, completion: {
