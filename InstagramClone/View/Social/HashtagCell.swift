@@ -1,15 +1,16 @@
 //
-//  SearchPostCell.swift
+//  HashtagCell.swift
 //  InstagramClone
 //
-//  Created by 배상렬 on 2020/02/18.
+//  Created by 배상렬 on 2020/02/20.
 //  Copyright © 2020 BaeSangRyol. All rights reserved.
 //
 
 import UIKit
 
-class SearchPostCell: UICollectionViewCell
+class HashtagCell: UICollectionViewCell
 {
+    
     // MARK: - Properties
     var post: Post?
     {
@@ -49,4 +50,5 @@ class SearchPostCell: UICollectionViewCell
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }

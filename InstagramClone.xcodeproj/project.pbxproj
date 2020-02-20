@@ -37,6 +37,8 @@
 		FEB58BC223FCD21C002F229A /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB58BC123FCD21C002F229A /* Message.swift */; };
 		FEB58BC423FCD383002F229A /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB58BC323FCD383002F229A /* ChatController.swift */; };
 		FEB58BC623FCF43B002F229A /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB58BC523FCF43B002F229A /* ChatCell.swift */; };
+		FEB58BC923FE1E45002F229A /* HashtagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB58BC823FE1E45002F229A /* HashtagController.swift */; };
+		FEB58BCB23FE2367002F229A /* HashtagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB58BCA23FE2367002F229A /* HashtagCell.swift */; };
 		FED11CDA23FBCB6A00DF8D5D /* SearchPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED11CD923FBCB6A00DF8D5D /* SearchPostCell.swift */; };
 		FED11CDD23FBDEFA00DF8D5D /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED11CDC23FBDEFA00DF8D5D /* MessagesController.swift */; };
 		FED11CE023FBE18800DF8D5D /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED11CDF23FBE18800DF8D5D /* MessageCell.swift */; };
@@ -86,6 +88,8 @@
 		FEB58BC123FCD21C002F229A /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Message.swift; path = InstagramClone/View/Messages/Message.swift; sourceTree = SOURCE_ROOT; };
 		FEB58BC323FCD383002F229A /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		FEB58BC523FCF43B002F229A /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		FEB58BC823FE1E45002F229A /* HashtagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagController.swift; sourceTree = "<group>"; };
+		FEB58BCA23FE2367002F229A /* HashtagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagCell.swift; sourceTree = "<group>"; };
 		FED11CD923FBCB6A00DF8D5D /* SearchPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPostCell.swift; sourceTree = "<group>"; };
 		FED11CDC23FBDEFA00DF8D5D /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		FED11CDF23FBE18800DF8D5D /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -182,6 +186,7 @@
 			children = (
 				FE5F82F523ED253D00DDDFB7 /* FeedVC.swift */,
 				FE197B2023FA2711004FF93B /* CommentVC.swift */,
+				FEB58BC823FE1E45002F229A /* HashtagController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -199,6 +204,7 @@
 				FE197B2223FA27B4004FF93B /* CommentCell.swift */,
 				FE11DFEE23FA892600A5E1A7 /* NotificationCell.swift */,
 				FED11CD923FBCB6A00DF8D5D /* SearchPostCell.swift */,
+				FEB58BCA23FE2367002F229A /* HashtagCell.swift */,
 			);
 			path = Social;
 			sourceTree = "<group>";
@@ -423,6 +429,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE5F830B23F1128800DDDFB7 /* SearchUserCell.swift in Sources */,
+				FEB58BCB23FE2367002F229A /* HashtagCell.swift in Sources */,
 				FEE3D95C23F6B263005E4A74 /* FeedCell.swift in Sources */,
 				FEB58BC023FCCC72002F229A /* NewMessageCell.swift in Sources */,
 				FE5F830923F0F22C00DDDFB7 /* User.swift in Sources */,
@@ -460,6 +467,7 @@
 				FE11DFEF23FA892600A5E1A7 /* NotificationCell.swift in Sources */,
 				FE52F7DE23FADBD400446B0F /* Notification.swift in Sources */,
 				FED11CDD23FBDEFA00DF8D5D /* MessagesController.swift in Sources */,
+				FEB58BC923FE1E45002F229A /* HashtagController.swift in Sources */,
 				FE197B2323FA27B4004FF93B /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
