@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import ActiveLabel
 
 class CommentCell: UICollectionViewCell
 {
@@ -19,20 +20,11 @@ class CommentCell: UICollectionViewCell
             
             guard let user = comment?.user else {return};
             guard let profileImageUrl = user.profileImageUrl else {return};
-            guard let username = user.username else {return};
-            guard let commentText = comment?.commentText else {return};
-            guard let timestamp = getCommentTimeStamp() else {return};
             
             self.profileImageView.loadImage(with: profileImageUrl);
             
-            let attributesText = NSMutableAttributedString(string: username, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)]);
-            attributesText.append(NSAttributedString(string: " \(commentText)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]));
-           
-            attributesText.append(NSAttributedString(string: " \(timestamp).", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
-                                                                                NSAttributedString.Key.foregroundColor: UIColor.lightGray]));
-           
-               
-            commentTextView.attributedText = attributesText;
+            configureCommentLabel();
+            
         }
     }
     
@@ -44,22 +36,13 @@ class CommentCell: UICollectionViewCell
         return iv;
     }();
     
-    let commentTextView: UITextView = {
+    let commentLabel: ActiveLabel = {
     
-        let tv = UITextView();
-        tv.font = UIFont.systemFont(ofSize: 12);
-        tv.isScrollEnabled = false;
+        let label = ActiveLabel();
         
-        let attributesText = NSMutableAttributedString(string: "Username", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)]);
-        attributesText.append(NSAttributedString(string: " Some test comment", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]));
-        
-        attributesText.append(NSAttributedString(string: " 2d.", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
-                                                                             NSAttributedString.Key.foregroundColor: UIColor.lightGray]));
-        
-        
-        tv.attributedText = attributesText;
-        
-        return tv;
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.numberOfLines = 0;
+        return label;
         
     }();
     
@@ -71,6 +54,42 @@ class CommentCell: UICollectionViewCell
         
         return view;
     }();
+    
+    // MARK: - Handlers
+    func configureCommentLabel()
+    {
+        guard let comment = self.comment else {return};
+        guard let user = comment.user else {return};
+        guard let username = user.username else {return};
+        guard let commentText = comment.commentText else {return};
+        
+        // look for username as pattern
+        let customType = ActiveType.custom(pattern: "^\(username)\\b");
+        
+        commentLabel.enabledTypes = [.mention, .hashtag, .url, customType];
+        
+        // configure username link attributes
+        commentLabel.configureLinkAttribute = { (type, attributes, isSelected) in
+            var atts = attributes;
+            
+            switch type
+            {
+            case .custom:
+                atts[NSAttributedString.Key.font] = UIFont.boldSystemFont(ofSize: 12);
+            default: ()
+            }
+            
+            return atts;
+        }
+        
+        commentLabel.customize { (label) in
+            
+            label.text = "\(username) \(commentText)"
+            label.customColor[customType] = .black;
+            label.font = UIFont.systemFont(ofSize: 12);
+            label.textColor = .black;
+        }
+    }
     
     func getCommentTimeStamp() -> String?
     {
@@ -85,6 +104,8 @@ class CommentCell: UICollectionViewCell
         return dateFormatter.string(from: comment.creationData, to: now);
     }
     
+    
+    
     // MARK: - Init
     
     override init(frame: CGRect)
@@ -97,8 +118,8 @@ class CommentCell: UICollectionViewCell
         profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true;
         profileImageView.layer.cornerRadius = 40 / 2;
         
-        addSubview(commentTextView);
-        commentTextView.anchor(top: topAnchor, left: profileImageView.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 4, paddingRight: 4, width: 0, height: 0);
+        addSubview(commentLabel);
+        commentLabel.anchor(top: topAnchor, left: profileImageView.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 4, paddingRight: 4, width: 0, height: 0);
        
         
         

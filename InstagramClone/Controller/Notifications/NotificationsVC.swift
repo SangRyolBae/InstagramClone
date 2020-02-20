@@ -114,7 +114,7 @@ class NotificationsVC: UITableViewController, NotificationCellDelegate
     {
         self.timer?.invalidate();
         
-        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(handleSortNotifications), userInfo: nil, repeats: false);
+        self.timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(handleSortNotifications), userInfo: nil, repeats: false);
         
     }
     

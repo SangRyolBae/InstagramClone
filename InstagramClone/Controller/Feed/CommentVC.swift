@@ -70,7 +70,7 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout
         collectionView?.keyboardDismissMode = .interactive;
         collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -50, right: 0);
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: -50, right: 0);
-            
+        
         // navigation title
         navigationItem.title = "Comments";
         
@@ -93,7 +93,7 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout
     }
     
     override var inputAccessoryView: UIView?
-    {
+        {
         get
         {
             return containerView;
@@ -132,7 +132,10 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CommentCell
-              
+        
+        handleHashtagTapped(forCell: cell);
+        handleMentionTapped(forCell: cell);
+        
         cell.comment = comments[indexPath.row];
         
         return cell;
@@ -153,16 +156,42 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout
         let values = [ "commentText" : commentText,
                        "creationDate" : creationDate,
                        "uid" : uid
-                     ] as [String : Any];
+            ] as [String : Any];
         
         COMMENT_REF.child(postId).childByAutoId().updateChildValues(values) { (err, ref) in
             
             self.uploadCommentNotificationToServer();
+            
+            if commentText.contains("@")
+            {
+                self.uploadMentionNotificationToServer(forPostId: postId, withText: commentText, isForComment: true);
+            }
+            
             self.commentTextField.text = nil;
             
         }
     }
     
+    func handleHashtagTapped(forCell cell: CommentCell)
+    {
+        cell.commentLabel.handleHashtagTap { (hashtag) in
+            
+            print("HashTag is \(hashtag)");
+            
+            let hashtagController = HashtagController(collectionViewLayout: UICollectionViewFlowLayout());
+            hashtagController.hashtag = hashtag;
+            self.navigationController?.pushViewController(hashtagController, animated: true);
+        }
+    }
+    
+    func handleMentionTapped(forCell cell: CommentCell)
+    {
+        cell.commentLabel.handleMentionTap { (username) in
+            
+            print("Mention is \(username)");
+            self.getMentionedUser(withUsername: username);
+        }
+    }
     
     // MARK: - APIs
     func fetchComments()
@@ -178,10 +207,10 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout
             Database.fetchUser(with: uid) { (user) in
                 
                 let comment = Comment(user: user, dictionary: dictionary);
-                           
-               self.comments.append(comment);
-               
-               self.collectionView?.reloadData();
+                
+                self.comments.append(comment);
+                
+                self.collectionView?.reloadData();
                 
             }
         }
@@ -201,8 +230,8 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout
                        "uid" : currentUid,
                        "type" : COMMENT_INT_VALUE,
                        "postId" : postId
-                     ] as [String: AnyObject];
-
+            ] as [String: AnyObject];
+        
         // upload comment notification to server
         if uid != currentUid
         {
