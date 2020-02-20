@@ -264,6 +264,7 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
     func handleRefresh()
     {
         posts.removeAll(keepingCapacity: false);
+        self.currentKey = nil;
         fetchPosts();
         collectionView?.reloadData();
     }
