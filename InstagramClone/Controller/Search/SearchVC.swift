@@ -44,6 +44,9 @@ class SearchVC: UITableViewController, UISearchBarDelegate, UICollectionViewDele
         // configure collection view
         configureCollectionView();
         
+        // configure refresh control
+        configureRefreshControl();
+        
         // fetch posts
         fetchPosts();
     }
@@ -139,6 +142,15 @@ class SearchVC: UITableViewController, UISearchBarDelegate, UICollectionViewDele
         
     }
     
+    @objc
+    func handleRefresh()
+    {
+        posts.removeAll(keepingCapacity: false);
+        self.currentKey = nil;
+        fetchPosts();
+        collectionView.reloadData();
+    }
+    
     // MARK: - UISearchBar
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
@@ -193,6 +205,15 @@ class SearchVC: UITableViewController, UISearchBarDelegate, UICollectionViewDele
     }
     
     // MARK: - API
+    func configureRefreshControl()
+    {
+        let refreshControl = UIRefreshControl();
+        
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged);
+        
+        self.tableView.refreshControl = refreshControl;
+    }
+    
     
     func fetchUsers()
     {
@@ -257,7 +278,7 @@ class SearchVC: UITableViewController, UISearchBarDelegate, UICollectionViewDele
         {
            POSTS_REF.queryLimited(toLast: 18).observeSingleEvent(of: .value) { (snapshot) in
            
-               self.collectionView?.refreshControl?.endRefreshing();
+               self.tableView?.refreshControl?.endRefreshing();
                
                guard let first = snapshot.children.allObjects.first as? DataSnapshot else {return };
                guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else {return};

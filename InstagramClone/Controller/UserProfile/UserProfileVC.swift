@@ -21,15 +21,18 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     var currentKey: String?
     
     
-    // MARK: - ViewDidLoad
+    // MARK: - Init
     override func viewDidLoad()
     {
         
         super.viewDidLoad()
-
+        
         // Register cell classes
         self.collectionView!.register(UserPostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView!.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier);
+        
+        // configure refresh control
+        configureRefreshControl();
         
         // background color
         self.collectionView.backgroundColor = .white;
@@ -75,12 +78,12 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     
     
     // MARK: - UICollectionView
-
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
     {
         if posts.count > 9
@@ -91,7 +94,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
             }
         }
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return posts.count;
@@ -99,7 +102,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-         
+        
         // declare header
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeader;
         
@@ -113,11 +116,11 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         // return header
         return header;
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! UserPostCell
-    
+        
         // Configure the cell
         cell.post = posts[indexPath.row];
         
@@ -130,6 +133,8 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         let feedVC = FeedVC(collectionViewLayout: UICollectionViewFlowLayout());
         
         feedVC.viewSinglePost = true;
+        feedVC.userProfileController = self;
+        
         feedVC.post = posts[indexPath.item];
         
         navigationController?.pushViewController(feedVC, animated: true);
@@ -149,12 +154,12 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         {
             uid = Auth.auth().currentUser?.uid;
         }
-  
+        
         // initial data pull
         if nil == currentKey
         {
             USER_POSTS_REF.child(uid).queryLimited(toLast: 10).observeSingleEvent(of: .value) { (snapshot) in
-            
+                
                 self.collectionView?.refreshControl?.endRefreshing();
                 
                 guard let first = snapshot.children.allObjects.first as? DataSnapshot else {return };
@@ -194,22 +199,22 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         }
         
         
-
+        
     }
     
     func fetchPost(withPostId postId:String)
     {
         
         Database.fetchPost(with: postId) { (post) in
-
+            
             self.posts.append(post);
-
+            
             self.posts.sort { (post1, post2) -> Bool in
                 return post1.creationDate > post2.creationDate;
             }
-
+            
             self.collectionView?.reloadData();
-
+            
         }
     }
     
@@ -254,40 +259,57 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     
     // MARK: - Handlers
     
-    @objc
-       func handleLogout()
-       {
-           // declare alert controller
-           let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet);
-           
-           // add alert log out action
-           alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
-               
-               do {
-                   
-                   // attempt sign out
-                   try Auth.auth().signOut();
-                   
-                   // present login controller
-                   let loginVC = LoginVC();
-                   let navController = UINavigationController(rootViewController: loginVC);
-                   self.present(navController, animated: true, completion: nil);
-                   
-                   print( "Successfully logged user out");
-                   
-               }catch {
-                   
-                   print("Failed to sign out");
-                   
-               }
-           }))
-           
-           // add cancel action
-           alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil));
-           
-           present(alertController, animated: true, completion: nil);
-       }
+    func configureRefreshControl()
+    {
+        let refreshControl = UIRefreshControl();
+        
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged);
+        
+        collectionView.refreshControl = refreshControl;
+    }
     
+    @objc
+    func handleLogout()
+    {
+        // declare alert controller
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet);
+        
+        // add alert log out action
+        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
+            
+            do {
+                
+                // attempt sign out
+                try Auth.auth().signOut();
+                
+                // present login controller
+                let loginVC = LoginVC();
+                let navController = UINavigationController(rootViewController: loginVC);
+                self.present(navController, animated: true, completion: nil);
+                
+                print( "Successfully logged user out");
+                
+            }catch {
+                
+                print("Failed to sign out");
+                
+            }
+        }))
+        
+        // add cancel action
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil));
+        
+        present(alertController, animated: true, completion: nil);
+    }
+    
+    @objc
+    func handleRefresh()
+    {
+        posts.removeAll(keepingCapacity: false);
+        self.currentKey = nil;
+        fetchPosts();
+        collectionView.reloadData();
+    }
     
     // MARK: - UserProfileHeader Protocol
     
@@ -321,7 +343,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
             }
         }
     }
-
+    
     func setUserStats(for header: UserProfileHeader)
     {
         guard let uid = header.user?.uid else {return};
@@ -349,7 +371,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         
         // get number of following
         USER_FOLLOWING_REF.child(uid).observe(.value) { (snapshot) in
-             
+            
             if let snapshot = snapshot.value as? Dictionary<String, AnyObject>
             {
                 numberOfFollowing = snapshot.count;
@@ -357,7 +379,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
             {
                 numberOfFollowing = 0;
             }
-        
+            
             let attributesText = NSMutableAttributedString(string: "\(numberOfFollowing!)\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)]);
             attributesText.append(NSAttributedString(string: "following", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]));
             

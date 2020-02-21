@@ -20,6 +20,7 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
     var viewSinglePost = false;
     var post:Post?;
     var currentKey: String?
+    var userProfileController: UserProfileVC?;
     
     override func viewDidLoad()
     {
@@ -323,6 +324,40 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
     
     func handleOptionTapped(for cell:FeedCell)
     {
+        guard let post = cell.post else { return };
+        
+        if post.ownerUid == Auth.auth().currentUser?.uid
+        {
+            let alertController = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet);
+            
+            alertController.addAction(UIAlertAction(title: "Delete Post", style: .destructive, handler: { (_) in
+                
+                post.deletePost();
+                
+                if !self.viewSinglePost
+                {
+                    self.handleRefresh();
+                }else
+                {
+                    if let userProfileController = self.userProfileController
+                    {
+                        _ = self.navigationController?.popViewController(animated: true);
+                        userProfileController.handleRefresh();
+                    }
+                }
+                
+            }));
+            
+            alertController.addAction(UIAlertAction(title: "Edit Post", style: .default, handler: { (_) in
+                
+                print(" Handle edit post...");
+            }));
+            
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil));
+            
+            present(alertController, animated: true, completion: nil);
+        }
+        
         
     }
     
