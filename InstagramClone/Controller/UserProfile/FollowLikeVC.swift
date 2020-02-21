@@ -42,6 +42,8 @@ class FollowLikeVC: UITableViewController, FollowCellDelegate
     var viewingMode: ViewingMode!;
     var uid: String?;
     var users = [User]();
+    var followCurrentKey: String?
+    var likeCurrentKey: String?
     
     override func viewDidLoad()
     {
@@ -70,6 +72,16 @@ class FollowLikeVC: UITableViewController, FollowCellDelegate
     // MARK: - UITableView
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+    {
+        if users.count > 3
+        {
+            if indexPath.item == users.count - 1 {
+                fetchUsers();
+            }
+        }
     }
     
     // 총갯수
@@ -152,34 +164,111 @@ class FollowLikeVC: UITableViewController, FollowCellDelegate
         {
         case .Following, .Followers:
             
-            guard let uid = self.uid else { return };
+            fetchUsersFollow();
             
-            ref.child(uid).observeSingleEvent(of: .value) { (snapshot) in
+        case .Likes:
+                      
+            fetchUsersLike();
+        }
+    }
+    
+    func fetchUsersFollow()
+    {
+        guard let ref = getDatabaseReference() else {return};
+        guard let uid = self.uid else { return };
+        
+        if followCurrentKey == nil
+        {
+            
+            ref.child(uid).queryLimited(toLast: 4).observeSingleEvent(of: .value) { (snapshot) in
                 
+                //self.collectionView?.refreshControl?.endRefreshing();
+                
+                guard let first = snapshot.children.allObjects.first as? DataSnapshot else {return };
                 guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else {return};
                 
                 allObjects.forEach { (snapshot) in
-                
-                    let uid = snapshot.key;
+                    
+                    let uid = snapshot.key
                     
                     self.fetchUser(with: uid);
                 }
+                
+                self.followCurrentKey = first.key;
             }
-        case .Likes:
-                        
-            guard let postId = self.postId else { return };
             
-            ref.child(postId).observe(.childAdded, with: { (snapshot) in
+        }else
+        {
+            ref.child(uid).queryOrderedByKey().queryEnding(atValue: self.followCurrentKey).queryLimited(toLast: 7).observeSingleEvent(of: .value) { (snapshot) in
                 
-                let uid = snapshot.key;
+                guard let first = snapshot.children.allObjects.first as? DataSnapshot else {return };
+                guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else {return};
                 
-                self.fetchUser(with: uid);
+                allObjects.forEach { (snapshot) in
+                    
+                    let uid = snapshot.key
+                    
+                    if uid != self.followCurrentKey {
+                        self.fetchUser(with: uid);
+                    }
+                }
                 
-            })
+                self.followCurrentKey = first.key;
+                
+            }
+            
         }
-        
-        
     }
+    
+    func fetchUsersLike()
+    {
+        guard let ref = getDatabaseReference() else {return};
+        guard let postId = self.postId else { return };
+        
+        if likeCurrentKey == nil
+        {
+            
+            ref.child(postId).queryLimited(toLast: 4).observeSingleEvent(of: .value) { (snapshot) in
+                
+                //self.collectionView?.refreshControl?.endRefreshing();
+                
+                guard let first = snapshot.children.allObjects.first as? DataSnapshot else {return };
+                guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else {return};
+                
+                allObjects.forEach { (snapshot) in
+                    
+                    let uid = snapshot.key
+                    
+                    self.fetchUser(with: uid);
+                }
+                
+                self.likeCurrentKey = first.key;
+            }
+            
+        }else
+        {
+            ref.child(postId).queryOrderedByKey().queryEnding(atValue: self.likeCurrentKey).queryLimited(toLast: 7).observeSingleEvent(of: .value) { (snapshot) in
+                
+                guard let first = snapshot.children.allObjects.first as? DataSnapshot else {return };
+                guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else {return};
+                
+                allObjects.forEach { (snapshot) in
+                    
+                    let uid = snapshot.key
+                    
+                    if uid != self.likeCurrentKey {
+                        self.fetchUser(with: uid);
+                    }
+                }
+                
+                self.likeCurrentKey = first.key;
+                
+            }
+        }
+    }
+    
+    
+    
     
     // MARK: - FollowCellDelegate Handlers
     
