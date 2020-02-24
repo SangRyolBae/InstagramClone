@@ -351,6 +351,13 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
             alertController.addAction(UIAlertAction(title: "Edit Post", style: .default, handler: { (_) in
                 
                 print(" Handle edit post...");
+                
+                let uploadPostController = UploadPostVC();
+                let navigationController = UINavigationController(rootViewController: uploadPostController);
+                uploadPostController.postToEdit = post;
+                uploadPostController.uploadAction = UploadPostVC.UploadAction(index: 1);
+                self.present(navigationController, animated: true, completion: nil);
+                
             }));
             
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil));

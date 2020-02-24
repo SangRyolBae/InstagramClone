@@ -267,7 +267,7 @@ class FeedCell: UICollectionViewCell
             captionLabel.numberOfLines = 2;
         }
         
-        postTimeLabel.text = "2 DAYS AGO";
+        postTimeLabel.text = post.creationDate.timeAgoToDisplay();
     }
     
     

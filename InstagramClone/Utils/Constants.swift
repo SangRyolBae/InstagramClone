@@ -10,7 +10,10 @@ import Firebase
 
 // MARK: - Root References
 let DB_REF = Database.database().reference();
+
 let STORAGE_REF = Storage.storage().reference();
+let STORAGE_PROFILE_IMAGES_REF = STORAGE_REF.child("profile_images")
+
 
 // MARK: - Database References
 
