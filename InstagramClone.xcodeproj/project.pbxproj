@@ -12,6 +12,8 @@
 		FE11DFEF23FA892600A5E1A7 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11DFEE23FA892600A5E1A7 /* NotificationCell.swift */; };
 		FE197B2123FA2711004FF93B /* CommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE197B2023FA2711004FF93B /* CommentVC.swift */; };
 		FE197B2323FA27B4004FF93B /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE197B2223FA27B4004FF93B /* CommentCell.swift */; };
+		FE3DD6CE2403B51400D308B1 /* CommentInputAccesoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3DD6CD2403B51400D308B1 /* CommentInputAccesoryView.swift */; };
+		FE3DD6D02403B53300D308B1 /* CommentInputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3DD6CF2403B53300D308B1 /* CommentInputTextView.swift */; };
 		FE52F7DE23FADBD400446B0F /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE52F7DD23FADBD400446B0F /* Notification.swift */; };
 		FE5F82F023EBD65200DDDFB7 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82EF23EBD65200DDDFB7 /* SignUpVC.swift */; };
 		FE5F82F623ED253D00DDDFB7 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5F82F523ED253D00DDDFB7 /* FeedVC.swift */; };
@@ -63,6 +65,9 @@
 		FE11DFEE23FA892600A5E1A7 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		FE197B2023FA2711004FF93B /* CommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentVC.swift; sourceTree = "<group>"; };
 		FE197B2223FA27B4004FF93B /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		FE3DD6CD2403B51400D308B1 /* CommentInputAccesoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputAccesoryView.swift; sourceTree = "<group>"; };
+		FE3DD6CF2403B53300D308B1 /* CommentInputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputTextView.swift; sourceTree = "<group>"; };
+		FE3DD6D12403C6DA00D308B1 /* InstagramClone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InstagramClone.entitlements; sourceTree = "<group>"; };
 		FE52F7DD23FADBD400446B0F /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Notification.swift; path = InstagramClone/View/Notification.swift; sourceTree = SOURCE_ROOT; };
 		FE5F82EF23EBD65200DDDFB7 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		FE5F82F323ED02AE00DDDFB7 /* MainTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabVC.swift; sourceTree = "<group>"; };
@@ -137,6 +142,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FE3DD6CC2403B4DC00D308B1 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				FE197B2023FA2711004FF93B /* CommentVC.swift */,
+				FE3DD6CD2403B51400D308B1 /* CommentInputAccesoryView.swift */,
+				FE3DD6CF2403B53300D308B1 /* CommentInputTextView.swift */,
+			);
+			path = Comments;
+			sourceTree = "<group>";
+		};
 		FE5F82FF23ED2B9600DDDFB7 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,8 +199,8 @@
 		FE5F830423ED2BC100DDDFB7 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				FE3DD6CC2403B4DC00D308B1 /* Comments */,
 				FE5F82F523ED253D00DDDFB7 /* FeedVC.swift */,
-				FE197B2023FA2711004FF93B /* CommentVC.swift */,
 				FEB58BC823FE1E45002F229A /* HashtagController.swift */,
 			);
 			path = Feed;
@@ -250,6 +265,7 @@
 		FEEA640F23EBA69700CC32C3 /* InstagramClone */ = {
 			isa = PBXGroup;
 			children = (
+				FE3DD6D12403C6DA00D308B1 /* InstagramClone.entitlements */,
 				FEEA642923EBAEA400CC32C3 /* Utils */,
 				FEEA642623EBA71200CC32C3 /* Model */,
 				FEEA642523EBA70F00CC32C3 /* View */,
@@ -451,9 +467,11 @@
 				FEE3D95623F6476C005E4A74 /* Post.swift in Sources */,
 				FED11CE023FBE18800DF8D5D /* MessageCell.swift in Sources */,
 				FE5F831523F2928100DDDFB7 /* FollowLikeCell.swift in Sources */,
+				FE3DD6D02403B53300D308B1 /* CommentInputTextView.swift in Sources */,
 				FEEA642823EBA77100CC32C3 /* LoginVC.swift in Sources */,
 				FEB58BC623FCF43B002F229A /* ChatCell.swift in Sources */,
 				FE5F82F623ED253D00DDDFB7 /* FeedVC.swift in Sources */,
+				FE3DD6CE2403B51400D308B1 /* CommentInputAccesoryView.swift in Sources */,
 				FEEA641123EBA69700CC32C3 /* AppDelegate.swift in Sources */,
 				FEEA641323EBA69700CC32C3 /* SceneDelegate.swift in Sources */,
 				FEE3D95823F64EE6005E4A74 /* UserPostCell.swift in Sources */,
@@ -613,7 +631,9 @@
 			baseConfigurationReference = 777FC8AD69E7DF9D75A4CBA2 /* Pods-InstagramClone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = InstagramClone/InstagramClone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FHX97DY9X4;
 				INFOPLIST_FILE = InstagramClone/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -632,7 +652,9 @@
 			baseConfigurationReference = B448D0AC2B0B1477724FBB2B /* Pods-InstagramClone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = InstagramClone/InstagramClone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FHX97DY9X4;
 				INFOPLIST_FILE = InstagramClone/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
